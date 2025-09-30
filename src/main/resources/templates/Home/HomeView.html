@@ -1,0 +1,282 @@
+
+<div th:fragment="content">
+    <!-- Hero Section -->
+    <section class="hero-pattern text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold font-dynapuff mb-6">Conectamos compradores y vendedores directamente</h1>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">En DeepMarket puedes publicar tus productos o encontrar lo que necesitas a precios justos, sin intermediarios.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a th:href="@{/post}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Explorar productos</a>
+                    <a href="#" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">Registrarse gratis</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold text-blue-600 mb-2">5,000+</div>
+                    <div class="text-gray-600">Productos activos</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-blue-600 mb-2">2,500+</div>
+                    <div class="text-gray-600">Vendedores registrados</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold text-blue-600 mb-2">98%</div>
+                    <div class="text-gray-600">Transacciones exitosas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorías Section -->
+    <section id="categorias" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold font-dynapuff text-gray-800 mb-4">Explora por categorías</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Encuentra exactamente lo que buscas en nuestras categorías especializadas</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Categoría 1 -->
+                <a href="#" class="category-card bg-white rounded-xl p-6 text-center transition duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Tecnología</h3>
+                </a>
+
+                <!-- Categoría 2 -->
+                <a href="#" class="category-card bg-white rounded-xl p-6 text-center transition duration-300">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tshirt text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Ropa</h3>
+                </a>
+
+                <!-- Categoría 3 -->
+                <a href="#" class="category-card bg-white rounded-xl p-6 text-center transition duration-300">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-home text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Hogar</h3>
+                </a>
+
+                <!-- Categoría 4 -->
+                <a href="#" class="category-card bg-white rounded-xl p-6 text-center transition duration-300">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-car text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Vehículos</h3>
+                </a>
+
+                <!-- Categoría 5 -->
+                <a href="#" class="category-card bg-white rounded-xl p-6 text-center transition duration-300">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-gamepad text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Videojuegos</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos Destacados -->
+    <section id="productos" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 font-dynapuff">Productos destacados</h2>
+                <p class="text-gray-600">Descubre los productos más populares de nuestra comunidad</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Producto 1 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                    <div class="h-48 bg-gray-200 relative flex-shrink-0">
+                        <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Destacado</span>
+                        <img th:src="@{images/Iphone.jpg}" class="w-full h-full object-cover" alt="iPhone 13 Pro Max"/>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="font-semibold text-lg mb-1 line-clamp-2">iPhone 13 Pro Max</h3>
+                        <p class="text-gray-600 text-sm mb-3">Tecnología · Ciudad de México</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$15,499</span>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm whitespace-nowrap">ver más...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                    <div class="h-48 bg-gray-200 flex-shrink-0">
+                        <img th:src="@{images/bicicleta.jpg}" class="w-full h-full object-cover" alt="Bicicleta Montaña Professional"/>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="font-semibold text-lg mb-1 line-clamp-2">Bicicleta Montaña Professional</h3>
+                        <p class="text-gray-600 text-sm mb-3">Deportes · Guadalajara</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$3,800</span>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm whitespace-nowrap">ver más...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                    <div class="h-48 bg-gray-200 flex-shrink-0">
+                        <img th:src="@{images/sofa.jpg}" class="w-full h-full object-cover" alt="sofa moderno"/>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="font-semibold text-lg mb-1 line-clamp-2">Sofá Seccional Moderno con diseño contemporáneo y elegante</h3>
+                        <p class="text-gray-600 text-sm mb-3">Hogar · Monterrey</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$8,200</span>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm whitespace-nowrap">ver más...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                    <div class="h-48 bg-gray-200 flex-shrink-0">
+                        <img th:src="@{images/ps5.jpg}" class="w-full h-full object-cover" alt="play 5"/>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="font-semibold text-lg mb-1 line-clamp-2">Consola PlayStation 5</h3>
+                        <p class="text-gray-600 text-sm mb-3">Videojuegos · Puebla</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$9,999.00</span>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm whitespace-nowrap">ver más...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <a th:href="@{/post}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                    Ver todos los productos
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo Funciona -->
+    <section id="como-funciona" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 font-dynapuff">¿Cómo funciona DeepMarket?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Conectamos compradores y vendedores en 3 simples pasos</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Paso 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 font-bold text-2xl">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Publica o busca</h3>
+                    <p class="text-gray-600">Los vendedores publican sus productos y los compradores buscan lo que necesitan.</p>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 font-bold text-2xl">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Conecta directamente</h3>
+                    <p class="text-gray-600">Compradores y vendedores se contactan directamente para acordar los detalles.</p>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 font-bold text-2xl">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Realizan el intercambio</h3>
+                    <p class="text-gray-600">Acuerdan el método de pago y entrega para completar la transacción.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 font-dynapuff">Lo que dice nuestra comunidad</h2>
+                <p class="text-gray-600">Experiencias reales de compradores y vendedores</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Ana Martínez</h4>
+                            <p class="text-sm text-gray-600">Vendedora</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"He vendido más de 50 productos en DeepMarket. La plataforma es intuitiva y me ha permitido conectar con compradores serios."</p>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-green-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Carlos Rodríguez</h4>
+                            <p class="text-sm text-gray-600">Comprador</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Encontré exactamente lo que buscaba a un excelente precio. El proceso de contacto con el vendedor fue muy sencillo y rápido."</p>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-purple-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">María González</h4>
+                            <p class="text-sm text-gray-600">Vendedora</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"DeepMarket me ha permitido darle una segunda vida a productos que ya no uso y obtener un ingreso extra cada mes."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6 font-dynapuff">¿Listo para unirte a la comunidad?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Regístrate gratis y comienza a comprar o vender productos hoy mismo.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Crear cuenta</a>
+                <a th:href="@{/AcercaDe}" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">Saber más</a>
+            </div>
+        </div>
+    </section>
+
+</div>

@@ -1,0 +1,472 @@
+<div th:fragment="content">
+    <section class="px-5 pt-3 mb-2">
+        <h4 class="font-bold text-2xl mb-4">
+            <i class="fa-regular fa-circle-user text-blue-600 mr-2"></i> Usuarios
+        </h4>
+        <button @click="agergarUsuarioModal = true" class="group relative bg-gradient-to-tr from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+            <div class="absolute inset-0 opacity-20">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
+                    <path d="M0,0 C20,100 80,0 100,30 L100,100 L0,100 Z" class="fill-white"></path>
+                </svg>
+            </div>
+            <i class="fa-solid fa-circle-plus"></i>
+            <span class="z-10">Agregar usuario</span>
+        </button>
+    </section>
+
+    <section class="px-5">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Nombre</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Apellido</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Sexo</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Fecha_Nacimiento</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Fecha_Creacion</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Correo</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Usuario</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Rol</th>
+                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Estado</th>
+                        <th class="px-4 py-3 text-center text-sm font-medium text-gray-700">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                    <tr th:each="u : ${Usuarios}" class="hover:bg-gray-50">
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.nombre}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.apellido}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.sexo}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${#temporals.format(u.fechaNacimiento, 'dd/MM/yyyy')}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${#temporals.format(u.fechaCreacion, 'dd/MM/yyyy')}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.correo}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.usuario}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.idRol.nombre}"></td>
+                        <td class="px-4 py-3 text-sm text-gray-900" th:text="${u.idEstado.nombre}"></td>
+                        <td class="px-4 py-3 text-center space-x-3">
+                            <button class="text-green-600 hover:text-green-800 transition-colors"
+                                    th:attr="onclick=|cargarIdPassword('${u.id}')|"
+                                    @click="passwordModal = true"
+                                    title="Reasignar contraseña">
+                                <i class="fa-solid fa-lock"></i>
+                            </button>
+                            <button class="text-blue-600 hover:text-blue-800 transition-colors"
+                                    th:attr="data-user-id=${u.id}"
+                                    @click="$store.adminuser.openModificarModal($el.dataset.userId)"
+                                    title="Modificar registro">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 transition-colors"
+                                    th:attr="onclick=|ObtenerId('${u.id}')|"
+                                    @click="deleteModal = true"
+                                    title="Eliminar registro">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div x-show="agergarUsuarioModal" @click.outside="agergarUsuarioModal = false" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div @click.stop class="w-full max-w-3xl bg-white rounded-lg mx-auto max-h-[90vh] overflow-y-auto">
+            <div class="rounded-lg overflow-hidden border-0 shadow-xl">
+
+                <!-- Ola decorativa superior -->
+                <div class="relative pt-3">
+                    <div class="absolute top-0 left-0 w-full overflow-hidden h-4">
+                        <svg viewBox="0 0 500 16" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,0 C150,24 350,0 500,16 L500,00 L0,0 Z" class="fill-blue-600"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Header con gradiente -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-b-0 pb-4 sm:pb-6 pt-3 sm:pt-4 px-4 sm:px-6 flex flex-col items-center relative">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-user-plus text-white text-lg sm:text-xl"></i>
+                    </div>
+                    <h5 class="text-base sm:text-lg font-semibold text-center">Agregar Nuevo Usuario</h5>
+                    <button type="button" class="absolute top-2 sm:top-3 right-2 sm:right-3 opacity-80 hover:opacity-100 transition-opacity" @click="agergarUsuarioModal = false">
+                        <i class="fas fa-times text-white text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Formulario -->
+                <form th:action="@{/Usuarios/guardar}" th:object="${usuarioForm}" method="post" enctype="multipart/form-data">
+                    <div class="p-3 sm:p-4 flex flex-col items-center justify-start">
+                        <h6 class="font-semibold text-gray-700 mb-2 sm:mb-3 flex items-center text-sm sm:text-base border-b border-gray-200 pb-2 w-full justify-center">
+                            <i class="fas fa-user-circle text-blue-500 mr-2 text-xs sm:text-sm"></i>
+                            Imagen de Perfil
+                        </h6>
+                        <div class="relative border-2 border-dashed border-blue-300 rounded-lg h-32 w-32 sm:h-40 sm:w-40 bg-blue-50 flex items-center justify-center mb-2 sm:mb-3 hover:bg-blue-100 transition-colors duration-200">
+                            <div class="flex justify-center items-center fr-poster-preview" id="poster" x-show="posterPreview">
+                                <img :src="posterPreview" alt="Poster" class="rounded shadow max-h-[500px]">
+                            </div>
+                            <input type="file" id="poster-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*"  @change="cargarImagen">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-gray-200">
+                        <!-- Información Personal -->
+                        <div class="p-3 sm:p-4">
+                            <h6 class="font-semibold text-gray-700 mb-2 sm:mb-3 flex items-center text-xs sm:text-sm">
+                                <i class="fas fa-user-circle text-blue-500 mr-2 text-xs"></i>
+                                Información Personal
+                            </h6>
+                            <div class="space-y-2 sm:space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Nombre</label>
+                                    <input type="text" th:field="*{nombre}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Ej. Juan">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Apellido</label>
+                                    <input type="text" th:field="*{apellido}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Ej. Pérez">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Sexo</label>
+                                    <select th:field="*{sexo}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Fecha de Nacimiento</label>
+                                    <input type="date" th:field="*{fechaNacimiento}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información de Cuenta -->
+                        <div class="p-3 sm:p-4">
+                            <h6 class="font-semibold text-gray-700 mb-2 sm:mb-3 flex items-center text-xs sm:text-sm">
+                                <i class="fas fa-lock text-blue-500 mr-2 text-xs"></i>
+                                Información de Cuenta
+                            </h6>
+                            <div class="space-y-2 sm:space-y-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                                    <input type="email" th:field="*{correo}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="usuario@ejemplo.com">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Usuario</label>
+                                    <input type="text" th:field="*{usuario}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="nombre.usuario">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Contraseña</label>
+                                    <div class="relative">
+                                        <input type="password" th:field="*{password}" class="w-full px-3 py-1.5 pr-8 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                                        <button type="button" @click="togglePassword($event)" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1">Rol</label>
+                                        <select th:field="*{idRol.id}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                                            <option value="" disabled selected>Seleccione un rol</option>
+                                            <option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.nombre}"></option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1">Estado</label>
+                                        <select th:field="*{idEstado.id}" class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                                            <option value="" disabled selected>Seleccione un estado</option>
+                                            <option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.nombre}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t-0 bg-gray-50 py-3 px-4 sm:px-5">
+                        <button type="submit" class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white text-sm rounded-md font-medium hover:bg-blue-700 transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-save mr-2 text-xs"></i>
+                            Guardar Usuario
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Ola decorativa inferior -->
+                <div class="relative pb-3">
+                    <div class="absolute bottom-0 left-0 w-full overflow-hidden h-4">
+                        <svg viewBox="0 0 500 16" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,16 C150,0 350,24 500,0 L500,16 L0,16 Z" class="fill-purple-600"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Usuario -->
+    <div id="modificarModal"
+         x-data
+         x-show="$store.adminuser.modificarModal"
+         x-cloak
+         @click.outside="$store.adminuser.modificarModal = false"
+         @keydown.escape.window="$store.adminuser.modificarModal = false"
+         class="fixed inset-0 blur-3xl flex items-center justify-center z-50">
+        <div @click.stop class="w-full max-w-4xl bg-white rounded-lg mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="rounded-lg overflow-hidden border-0 shadow-2xl">
+
+                <!-- Ola decorativa superior -->
+                <div class="relative pt-4">
+                    <div class="absolute top-0 left-0 w-full overflow-hidden h-5">
+                        <svg viewBox="0 0 500 20" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,0 C150,30 350,0 500,20 L500,00 L0,0 Z" class="fill-blue-600"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Header con gradiente -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-b-0 pb-8 pt-6 px-6 flex flex-col items-center relative">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-3">
+                        <i class="fas fa-user-edit text-purple-600 text-2xl"></i>
+                    </div>
+                    <h5 class="text-xl font-bold text-center">Modificar Usuario</h5>
+                    <button type="button" class="absolute top-4 right-4 opacity-80 hover:opacity-100 transition-opacity" @click="$store.adminuser.modificarModal = false">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+
+                <form th:action="@{/Usuarios/editar}" th:object="${usuarioForm}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="p-0">
+                        <div class="grid md:grid-cols-2 divide-x divide-gray-200">
+
+                            <!-- Columna izquierda - Información Personal -->
+                            <div class="p-6">
+                                <h6 class="font-semibold text-gray-700 mb-4 flex items-center">
+                                    <i class="fas fa-user-circle text-blue-500 mr-2"></i>
+                                    Información Personal
+                                </h6>
+
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                                        <input type="text" th:field="*{nombre}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ej. Juan">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                                        <input type="text" th:field="*{apellido}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ej. Pérez">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
+                                        <select th:field="*{sexo}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                            <option value="F">Femenino</option>
+                                            <option value="M">Masculino</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Nacimiento</label>
+                                        <input type="date" th:field="*{fechaNacimiento}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Columna derecha - Información de Cuenta -->
+                            <div class="p-6">
+                                <h6 class="font-semibold text-gray-700 mb-4 flex items-center">
+                                    <i class="fas fa-lock text-blue-500 mr-2"></i>
+                                    Información de Cuenta
+                                </h6>
+
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                                        <input type="email" th:field="*{correo}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="usuario@ejemplo.com">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                                        <input type="text" th:field="*{usuario}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="nombre.usuario" readonly>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+                                        <select th:field="*{idRol.id}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                            <option value="" disabled selected>Seleccione un rol</option>
+                                            <option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.nombre}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+                                        <select th:field="*{idEstado.id}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                            <option value="" disabled selected>Seleccione un estado</option>
+                                            <option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.nombre}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="border-t-0 bg-gray-50 py-4 px-6">
+                        <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-200">Guardar Cambios</button>
+                    </div>
+                </form>
+
+                <!-- Ola decorativa inferior -->
+                <div class="relative pb-4">
+                    <div class="absolute bottom-0 left-0 w-full overflow-hidden h-5">
+                        <svg viewBox="0 0 500 20" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,20 C150,0 350,30 500,0 L500,20 L0,20 Z" class="fill-purple-600"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Contraseña -->
+    <div  x-show="passwordModal" @click.outside="passwordModal = false"
+          class="fixed inset-0 flex items-center justify-center z-50">
+        <div @click.stop class="w-full max-w-xl bg-white rounded-lg mx-12">
+            <div class="rounded-lg overflow-hidden border-0 shadow-2xl">
+                <!-- Ola decorativa superior -->
+                <div class="relative pt-4">
+                    <div class="absolute top-0 left-0 w-full overflow-hidden h-5">
+                        <svg viewBox="0 0 500 20" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,0 C150,30 350,0 500,20 L500,00 L0,0 Z" class="fill-blue-600"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Header del modal -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-b-0 pb-8 pt-6 px-6 flex flex-col items-center relative">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-3">
+                        <i class="fas fa-key text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h5 class="text-xl font-bold text-center">Editar Contraseña</h5>
+                    <button type="button" class="absolute top-4 right-4 opacity-80 hover:opacity-100 transition-opacity" @click="passwordModal = false">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+
+                <!-- Body del modal -->
+                <form th:action="@{/Usuarios/editarContrasena}" method="post">
+                    <div class="py-6 px-6">
+                        <input type="hidden" id="passwordUserId" name="id">
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña Actual</label>
+                            <div class="relative">
+                                <input type="password" name="password" class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                                <button type="button" @click="togglePassword($event)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña Nueva</label>
+                            <div class="relative">
+                                <input type="password" name="contrasena" class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                                <button type="button" @click="togglePassword($event)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar Contraseña</label>
+                            <div class="relative">
+                                <input type="password" name="confirmarContrasena" class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                                <button type="button" @click="togglePassword($event)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer del modal -->
+                    <div class="border-t-0 bg-gray-50 pt-4 pb-6 px-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button type="button" class="w-full px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition duration-200 flex items-center justify-center" @click="passwordModal = false">
+                            <i class="fas fa-times mr-2"></i> Cancelar
+                        </button>
+                        <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 flex items-center justify-center">
+                            <i class="fas fa-save mr-2"></i> Confirmar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Ola decorativa inferior -->
+                <div class="relative pb-4">
+                    <div class="absolute bottom-0 left-0 w-full overflow-hidden h-5">
+                        <svg viewBox="0 0 500 20" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,20 C150,0 350,30 500,0 L500,20 L0,20 Z" class="fill-purple-600"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación de usuario -->
+    <div x-show="deleteModal" @click.outside="deleteModal = false" class="fixed inset-0 blur-3xl flex items-center justify-center z-50">
+        <div @click.stop class="w-96 bg-white rounded-lg mx-4">
+            <div class="rounded-lg overflow-hidden border-0 shadow-2xl">
+                <!-- Ola decorativa superior -->
+                <div class="relative pt-4">
+                    <div class="absolute top-0 left-0 w-full overflow-hidden h-5">
+                        <svg viewBox="0 0 500 20" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,0 C150,30 350,0 500,20 L500,00 L0,0 Z" class="fill-blue-600"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Header del modal -->
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-b-0 pb-8 pt-6 px-6 flex flex-col items-center relative">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-3">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h5 class="text-xl font-bold text-center">Confirmar Eliminación</h5>
+                    <button type="button" class="absolute top-4 right-4 opacity-80 hover:opacity-100 transition-opacity" @click="deleteModal = false">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                </div>
+
+                <!-- Body del modal -->
+                <form th:action="@{/Usuarios/eliminarUsuario}" method="post">
+                    <input type="hidden" id="UserId" name="eliminarId">
+
+                    <div class="py-6 px-6 text-center">
+                        <p class="text-gray-700 text-lg font-medium mb-2">¿Está seguro que desea eliminar este usuario?</p>
+                        <p class="text-gray-500">Esta acción no se puede deshacer.</p>
+                    </div>
+
+                    <!-- Footer del modal -->
+                    <div class="border-t-0 bg-gray-50 pt-4 pb-6 px-6 flex flex-col space-y-3">
+                        <button type="submit" class="w-full px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-200 flex items-center justify-center">
+                            <i class="fas fa-trash-alt mr-2"></i> Confirmar
+                        </button>
+                        <button type="button" class="w-full px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition duration-200 flex items-center justify-center" @click="deleteModal = false">
+                            <i class="fas fa-times mr-2"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Ola decorativa inferior -->
+                <div class="relative pb-4">
+                    <div class="absolute bottom-0 left-0 w-full overflow-hidden h-5">
+                        <svg viewBox="0 0 500 20" preserveAspectRatio="none" class="absolute block w-full h-full">
+                            <path d="M0,20 C150,0 350,30 500,0 L500,20 L0,20 Z" class="fill-purple-600"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

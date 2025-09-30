@@ -3,14 +3,14 @@ package com.calculator.deepmarket.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles", schema = "public")
-public class Rol {
+@Table(name = "estados_post", schema = "public")
+public class EstadosPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_rol", nullable = false)
+    @Column(name = "id_estado_post", nullable = false)
     private Integer id;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     public Integer getId() {
@@ -29,16 +29,16 @@ public class Rol {
         this.nombre = nombre;
     }
 
-    public Rol() {}
+    public EstadosPost() {}
 
-    public Rol(Integer id, String nombre) {
+    public EstadosPost(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "Rol{" +
+        return "EstadosPost{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 '}';

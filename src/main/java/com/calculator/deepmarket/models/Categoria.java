@@ -3,24 +3,16 @@ package com.calculator.deepmarket.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "estados")
-public class Estado {
+@Table(name = "categorias", schema = "public")
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_categoria", nullable = false)
     private Integer id;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    public Estado() {
-
-    }
-
-    public Estado(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
     public Integer getId() {
         return id;
     }
@@ -37,9 +29,16 @@ public class Estado {
         this.nombre = nombre;
     }
 
+    public Categoria() {}
+
+    public Categoria(Integer id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     @Override
     public String toString() {
-        return "Estado{" +
+        return "Categoria{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 '}';

@@ -1,15 +1,18 @@
 package com.calculator.deepmarket.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuarios", schema = "public")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_usuario", nullable = false)
     private Integer id;
 
     @Column(name = "nombre", nullable = false, length = 50)
@@ -18,17 +21,18 @@ public class Usuario {
     @Column(name = "apellido", nullable = false, length = 50)
     private String apellido;
 
-    @Column(name = "edad", nullable = false)
-    private Integer edad;
+    @Column(name = "imagen", length = Integer.MAX_VALUE)
+    private String imagen;
 
-    @Column(name = "sexo", nullable = false, length = Integer.MAX_VALUE)
+    @Column(name = "sexo", length = Integer.MAX_VALUE)
     private String sexo;
 
-    @Column(name = "f_nacimiento", nullable = false)
-    private LocalDate fNacimiento;
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
 
-    @Column(name = "f_creacion", nullable = false)
-    private LocalDate fCreacion;
+    @ColumnDefault("CURRENT_DATE")
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDateTime fechaCreacion;
 
     @Column(name = "correo", nullable = false)
     private String correo;
@@ -36,35 +40,16 @@ public class Usuario {
     @Column(name = "usuario", nullable = false, length = 100)
     private String usuario;
 
-    @Column(name = "pass", nullable = false)
-    private String pass;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "rol_id", nullable = false)
-    private Rol rol;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rol")
+    private Rol idRol;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "estado_id", nullable = false)
-    private Estado estado;
-
-    public Usuario() {
-
-    }
-    public Usuario(Integer id, String nombre, String apellido, Integer edad, String sexo, LocalDate fNacimiento,
-            LocalDate fCreacion, String correo, String usuario, String pass, Rol rol, Estado estado) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.sexo = sexo;
-        this.fNacimiento = fNacimiento;
-        this.fCreacion = fCreacion;
-        this.correo = correo;
-        this.usuario = usuario;
-        this.pass = pass;
-        this.rol = rol;
-        this.estado = estado;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_estado")
+    private EstadosUsuario idEstado;
 
     public Integer getId() {
         return id;
@@ -90,13 +75,9 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public Integer getEdad() {
-        return edad;
-    }
+    public String getImagen(){return imagen;}
 
-    public void setEdad(Integer edad) {
-        this.edad = edad;
-    }
+    public void setImagen(String imagen){this.imagen = imagen;}
 
     public String getSexo() {
         return sexo;
@@ -106,20 +87,20 @@ public class Usuario {
         this.sexo = sexo;
     }
 
-    public LocalDate getFNacimiento() {
-        return fNacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFNacimiento(LocalDate fNacimiento) {
-        this.fNacimiento = fNacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public LocalDate getFCreacion() {
-        return fCreacion;
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFCreacion(LocalDate fCreacion) {
-        this.fCreacion = fCreacion;
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public String getCorreo() {
@@ -138,28 +119,45 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Rol getRol() {
-        return rol;
+    public Rol getIdRol() {
+        return idRol;
     }
 
-    public void setRol(Rol rol) {
-        this.rol = rol;
+    public void setIdRol(Rol idRol) {
+        this.idRol = idRol;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public EstadosUsuario getIdEstado() {
+        return idEstado;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setIdEstado(EstadosUsuario idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Usuario() {}
+
+    public Usuario(Integer id, EstadosUsuario idEstado, Rol idRol, String password, String usuario, String correo, LocalDateTime fechaCreacion, String sexo, LocalDate fechaNacimiento, String imagen,String apellido, String nombre) {
+        this.id = id;
+        this.idEstado = idEstado;
+        this.idRol = idRol;
+        this.password = password;
+        this.usuario = usuario;
+        this.correo = correo;
+        this.fechaCreacion = fechaCreacion;
+        this.sexo = sexo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.imagen = imagen;
+        this.apellido = apellido;
+        this.nombre = nombre;
     }
 
     @Override
@@ -168,15 +166,15 @@ public class Usuario {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
+                ", imagen='" + imagen + '\'' +
                 ", sexo='" + sexo + '\'' +
-                ", fNacimiento=" + fNacimiento +
-                ", fCreacion=" + fCreacion +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", fechaCreacion=" + fechaCreacion +
                 ", correo='" + correo + '\'' +
                 ", usuario='" + usuario + '\'' +
-                ", pass='" + pass + '\'' +
-                ", rol=" + rol +
-                ", estado=" + estado +
+                ", password='" + password + '\'' +
+                ", idRol=" + idRol +
+                ", idEstado=" + idEstado +
                 '}';
     }
 }

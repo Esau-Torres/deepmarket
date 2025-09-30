@@ -1,0 +1,307 @@
+/* Configuración base del chat container */
+.chat-container {
+    height: 100vh;
+    max-height: 900px;
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .chat-container {
+        height: 90vh;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@media (min-width: 1024px) {
+    .chat-container {
+        max-height: 800px;
+    }
+}
+
+/* Configuración específica para el panel de contactos en móviles */
+@media (max-width: 767px) {
+    #contactsPanel {
+        display: flex !important;
+    }
+
+    #contactsPanel.flex {
+        display: flex !important;
+    }
+}
+
+/* Personalización mejorada de la barra de scroll */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(243, 244, 246, 0.5);
+    border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #cbd5e0, #a0aec0);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #a0aec0, #718096);
+    transform: scale(1.1);
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+/* Efectos de hover mejorados para contactos */
+.hover\:bg-gray-700\/50:hover,
+.hover\:bg-blue-600\/30:hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Efectos para avatars */
+.chat-container img[alt="Avatar"] {
+    transition: all 0.3s ease;
+}
+
+.chat-container img[alt="Avatar"]:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Animaciones para mensajes */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.message-received {
+    animation: slideInLeft 0.4s ease-out;
+}
+
+.message-sent {
+    animation: slideInRight 0.4s ease-out;
+}
+
+/* Efectos para botones */
+.chat-container button {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.chat-container button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.chat-container button:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+.chat-container button > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Efectos para el input de mensajes */
+.chat-container input[type="text"]:focus {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.15);
+}
+
+/* Efectos de pulsación para elementos interactivos */
+.chat-container button:active {
+    transform: scale(0.95);
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+    .chat-container button:hover::before {
+        display: none;
+    }
+
+    .chat-container button:active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Animación de bounce mejorada para notificaciones */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.notification-badge {
+    animation: bounceIn 0.6s ease-out;
+}
+
+/* Efectos de glassmorphism */
+.glass-effect {
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Mejoras para el área de chat en móviles */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    #chatContainer {
+        padding: 1rem;
+    }
+
+    /* Mejora la legibilidad en pantallas pequeñas */
+    .chat-container .text-sm {
+        font-size: 0.825rem;
+    }
+
+    .chat-container .text-xs {
+        font-size: 0.7rem;
+    }
+}
+
+/* Animación de escritura (typing indicator) */
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+.typing-dot {
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Efectos de estado online */
+.online-status {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Efectos para modo oscuro (si se implementa) */
+@media (prefers-color-scheme: dark) {
+    .chat-container {
+        filter: brightness(0.9);
+    }
+}
+
+/* Transiciones suaves para cambios de layout */
+.chat-container * {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Efectos de focus mejorados para accesibilidad */
+.chat-container button:focus-visible,
+.chat-container input:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Animación para elementos que aparecen */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

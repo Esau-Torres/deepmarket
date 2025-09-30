@@ -1,0 +1,131 @@
+<div th:fragment="content">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+        <!-- Encabezado -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6">
+            <h1 class="text-2xl md:text-3xl font-bold">Crear Nueva Publicación</h1>
+            <p class="text-blue-100 mt-2">Complete todos los campos para publicar su anuncio</p>
+        </div>
+
+        <form class="p-6 space-y-6" enctype="multipart/form-data">
+            <!-- Campos ocultos -->
+            <input type="hidden" id="id_usuario" name="id_usuario" value="123">
+            <input type="hidden" id="id_estado_post" name="id_estado_post" value="1">
+
+            <!-- Sección 1: Información básica -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Titulo -->
+                <div class="md:col-span-2">
+                    <label class="block text-gray-700 font-medium mb-2" for="titulo">Título de la publicación</label>
+                    <input type="text" id="titulo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ej: iPhone 12 Pro Max en perfecto estado">
+                </div>
+
+                <!-- Descripción -->
+                <div class="md:col-span-2">
+                    <label class="block text-gray-700 font-medium mb-2" for="descripcion">Descripción</label>
+                    <textarea id="descripcion" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Describa detalladamente su producto o servicio..."></textarea>
+                </div>
+
+                <!-- Precio -->
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="precio">Precio ($)</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-gray-500">$</span>
+                        <input type="number" id="precio" min="0.1" class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0.00">
+                    </div>
+                </div>
+
+                <!-- Categoría -->
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="id_categoria">Categoría</label>
+                    <select id="id_categoria" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Seleccione una categoría</option>
+                        <option value="1">Electrónica</option>
+                        <option value="2">Hogar</option>
+                        <option value="3">Ropa</option>
+                        <option value="4">Deportes</option>
+                        <option value="5">Vehiculos</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sección 2: Ubicación y categorías -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- País -->
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="id_pais">País</label>
+                    <select id="id_pais" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Seleccione un país</option>
+                        <option value="1">Estados Unidos</option>
+                        <option value="2">México</option>
+                        <option value="3">España</option>
+                        <option value="4">Argentina</option>
+                        <option value="5">Colombia</option>
+                    </select>
+                </div>
+
+                <!-- Ciudad -->
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="id_ciudad">Ciudad</label>
+                    <select id="id_ciudad" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Seleccione una ciudad</option>
+                        <option value="1">Ciudad de México</option>
+                        <option value="2">Madrid</option>
+                        <option value="3">Buenos Aires</option>
+                        <option value="4">Bogotá</option>
+                        <option value="5">Lima</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sección 3: Imágenes -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-4">Imágenes (Máximo 4)</label>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="image-container">
+                    <!-- Imagen 1 -->
+                    <div class="fr-input-group relative border-2 border-dashed border-gray-300 rounded-lg h-40 bg-gray-50" id="poster-cont">
+                        <div id="poster" class="fr-poster-preview">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                        </div>
+                        <input type="file" id="poster-file" name="poster-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                    </div>
+
+                    <!-- Imagen 2 es el bueno -->
+                    <div class="fr-input-group relative border-2 border-dashed border-gray-300 rounded-lg h-40 bg-gray-50" id="poster-cont2">
+                        <div id="poster2" class="fr-poster-preview">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                        </div>
+                        <input type="file" id="poster-file2" name="poster-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                    </div>
+
+                    <!-- Imagen 3 -->
+                    <div class="fr-input-group relative border-2 border-dashed border-gray-300 rounded-lg h-40 bg-gray-50" id="poster-cont3">
+                        <div id="poster3" class="fr-poster-preview">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                        </div>
+                        <input type="file" id="poster-file3" name="poster-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                    </div>
+
+                    <!-- Imagen 4 -->
+                    <div class="fr-input-group relative border-2 border-dashed border-gray-300 rounded-lg h-40 bg-gray-50" id="poster-cont4">
+                        <div id="poster4" class="fr-poster-preview">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                        </div>
+                        <input type="file" id="poster-file4" name="poster-file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                    </div>
+                </div>
+                <p class="text-gray-500 text-sm mt-2">Haga clic en cada cuadro para seleccionar una imagen. Formatos permitidos: JPG, PNG, JPEG.</p>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex flex-col md:flex-row gap-4 pt-6 border-t border-gray-200">
+                <button type="button" class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition duration-200">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-200 flex-1">
+                    <i class="fas fa-paper-plane mr-2"></i> Publicar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
